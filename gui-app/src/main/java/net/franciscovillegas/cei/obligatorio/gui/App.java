@@ -4,14 +4,17 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.Scanner;
 
+import net.franciscovillegas.cei.obligatorio.common.Observer;
 import net.franciscovillegas.cei.obligatorio.common.Server;
 
 /**
  * Hello world!
  *
  */
-public class App {
+public class App extends UnicastRemoteObject implements Observer {
 	
 	private Server server;
 	
@@ -23,11 +26,20 @@ public class App {
 		this.server = (Server) registry.lookup("server");
 		String response = server.sayHello();
 		System.out.println("response: " + response);
-		
+		server.addObserver(this);
 		//Jugador j = server.login("pepe");
 	}
 	
+	public void sendMessage(String message) throws RemoteException {
+		this.server.sendMessage(message);
+	}
+	
 	public static void main(String[] args) throws RemoteException, NotBoundException {
-		new App();
+		App app = new App();
+		app.sendMessage("hola");
+	}
+
+	public void notify(String messaje) {
+		System.out.println(messaje);
 	}
 }
