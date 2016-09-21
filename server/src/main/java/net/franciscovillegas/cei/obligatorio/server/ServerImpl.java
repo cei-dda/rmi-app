@@ -1,6 +1,7 @@
 package net.franciscovillegas.cei.obligatorio.server;
 
 import java.rmi.RMISecurityManager;
+import java.rmi.RemoteException;
 
 import net.franciscovillegas.cei.obligatorio.common.Server;
 
@@ -13,6 +14,10 @@ public class ServerImpl implements Server {
 		if (System.getSecurityManager() == null) {
 			System.setSecurityManager(new RMISecurityManager());
 		}
+	}
+	
+	public String sayHello() throws RemoteException {
+		return "hola remoto";
 	}
 	
 }

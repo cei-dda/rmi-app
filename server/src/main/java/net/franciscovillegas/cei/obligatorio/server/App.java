@@ -13,7 +13,7 @@ import net.franciscovillegas.cei.obligatorio.common.Server;
 public class App {
 	public static void main(String[] args) {
 		try {
-			System.setProperty("java.security.policy", "file:///Users/fvillegas/projects/cei/java.policy");
+			System.setProperty("java.security.policy", "file:///Users/fvillegas/Projects/cei/java.policy");
 			LocateRegistry.createRegistry(1099);
 			ServerImpl obj = new ServerImpl();
 			Server stub = (Server) UnicastRemoteObject.exportObject(obj, 0);
