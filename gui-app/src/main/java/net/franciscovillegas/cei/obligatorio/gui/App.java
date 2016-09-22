@@ -1,5 +1,6 @@
 package net.franciscovillegas.cei.obligatorio.gui;
 
+import java.awt.EventQueue;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -17,17 +18,28 @@ import net.franciscovillegas.cei.obligatorio.common.Server;
 public class App extends UnicastRemoteObject implements Observer {
 	
 	private Server server;
+	private MainWindow window;
 	
 	public App() throws RemoteException, NotBoundException {
 		System.out.println(System.currentTimeMillis());
-		System.setProperty("java.security.policy","file:///Users/fvillegas/Projects/cei/dda2016/rmi-application/java.policy");
+		System.setProperty("java.security.policy","file:///java.policy");
 		System.out.println("Hello World!");
 		Registry registry = LocateRegistry.getRegistry(1099);
 		this.server = (Server) registry.lookup("server");
 		String response = server.sayHello();
 		System.out.println("response: " + response);
 		server.addObserver(this);
-		//Jugador j = server.login("pepe");
+		
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					window = new MainWindow();
+					window.setServer(server);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 	
 	public void sendMessage(String message) throws RemoteException {
@@ -36,10 +48,9 @@ public class App extends UnicastRemoteObject implements Observer {
 	
 	public static void main(String[] args) throws RemoteException, NotBoundException {
 		App app = new App();
-		app.sendMessage("hola");
 	}
 
 	public void notify(String messaje) {
-		System.out.println(messaje);
+		this.window.addMessage(messaje);
 	}
 }
