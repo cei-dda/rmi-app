@@ -22,6 +22,7 @@ public class App {
 			registry.bind("server", stub);
 
 			System.out.println("Server ready");
+			new Memento();
 		} catch (Exception e) {
 			System.err.println("Server exception: " + e.toString());
 			e.printStackTrace();

@@ -20,7 +20,12 @@
 			<artifactId>common</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		<!--  THIRD PARTY ZONE -->
+		<!-- THIRD PARTY ZONE -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.4.1211.jre7</version>
+		</dependency>
 		<!-- JUNIT ZONE -->
 		<dependency>
 			<groupId>junit</groupId>
