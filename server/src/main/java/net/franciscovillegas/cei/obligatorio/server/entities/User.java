@@ -1,11 +1,14 @@
 package net.franciscovillegas.cei.obligatorio.server.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -26,6 +29,9 @@ public class User implements Serializable {
 	@Transient
 	private String noPersistir;
 
+	@ManyToMany(mappedBy="users")
+	private List<Car> cars;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -58,4 +64,11 @@ public class User implements Serializable {
 		this.address = address;
 	}
 
+	public List<Car> getCars() {
+		return cars;
+	}
+
+	public void setCars(List<Car> cars) {
+		this.cars = cars;
+	}
 }
