@@ -9,6 +9,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import net.franciscovillegas.cei.obligatorio.common.Server;
+import net.franciscovillegas.cei.obligatorio.server.entities.Address;
 import net.franciscovillegas.cei.obligatorio.server.entities.User;
 
 /**
@@ -37,7 +38,12 @@ public class App {
 
 			em.getTransaction().begin();
 			User user = new User();
+			Address address = new Address("la direccion");
+			em.persist(address);
 			em.persist(user);
+			
+			user.setAddress(address);
+			
 			em.getTransaction().commit();
 			
 		} catch (Exception e) {
